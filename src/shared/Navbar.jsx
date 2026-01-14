@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import './Navbar.css';
-import logo from '../../public/sharafat format.png'
+import { AuthContext } from '../context/AuthContext/AuthContext';
 
 const Navbar = () => {
+    const { user, signOutUser } = use(AuthContext);
+
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => { })
+            .catch(err => console.log(err));
+    }
+
+
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/about'}>About</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to={'/myApplications'}>My Applications</NavLink></li>
+            </>
+        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -24,7 +37,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <a className="">
-                    <img className='w-20 h-8' src={logo} alt="" />
+                    <img className='w-20 h-8' src='/public/sharafat-format.png' alt="" />
                 </a>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -35,7 +48,12 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <NavLink to={'/register'} className="btn">Register</NavLink>
+                {
+                    user ? <button onClick={handleSignOut} className="btn btn-outline btn-warning">Sign Out</button> : <>
+                        <NavLink to={'/register'} className="btn">Register</NavLink>
+                        <NavLink to={'/signIn'} className="btn">SignIn</NavLink>
+                    </>
+                }
             </div>
         </div>
     );
