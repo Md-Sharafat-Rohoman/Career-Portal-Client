@@ -25,7 +25,7 @@ const JobList = ({ jobsApplication }) => {
                                 <th>{index+1}</th>
                                 <td>{job.title}</td>
                                 <td>{job.deadline}</td>
-                                <td><Link to={`/applications/:${job._id}`}>View Application</Link></td>
+                                <td><Link to={`/applications/${job._id}`}>View Application</Link></td>
                             </tr>)
                         }
 
