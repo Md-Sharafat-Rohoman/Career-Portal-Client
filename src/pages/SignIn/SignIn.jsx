@@ -10,8 +10,7 @@ const SignIn = () => {
     const { signIn } = use(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-    // console.log('SignIn Location:', location.state);
-    const from = location.state || '/';
+    const from = location.state?.from || '/';
     console.log('SignIn From:', from);
 
 
@@ -24,10 +23,9 @@ const SignIn = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                navigate( '/');
-                // form.reset();
-
+                console.log('Signed in User:', user);
+                const from = location.state?.from || '/'; // state এর ভেতর থেকে from কে বের করা
+                navigate(from, { replace: true });
             })
             .catch(err => console.log(err));
     }

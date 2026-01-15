@@ -20,7 +20,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate('/signIn')
+                navigate('/')
                 form.reset();
                
             })
